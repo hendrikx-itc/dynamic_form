@@ -207,7 +207,7 @@ module ActionView
               value = options[key]
               html[key] = value unless value.blank?
             else
-              html[key] = 'error_explanation'
+              html[key] = 'alert alert-error'
             end
           end
           options[:object_name] ||= params.first
@@ -228,8 +228,9 @@ module ActionView
             end.join.html_safe
 
             contents = ''
-            contents << content_tag(options[:header_tag] || :h2, header_message) unless header_message.blank?
-            contents << content_tag(:p, message) unless message.blank?
+            contents << content_tag(:button, '×', class: 'close', :'data-dismiss' => 'alert')
+            contents << content_tag(options[:header_tag] || :h4, header_message) unless header_message.blank?
+            contents << message unless message.blank?
             contents << content_tag(:ul, error_messages)
 
             content_tag(:div, contents.html_safe, html)
