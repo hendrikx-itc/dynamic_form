@@ -202,13 +202,11 @@ module ActionView
 
         unless count.zero?
           html = {}
-          [:id, :class].each do |key|
-            if options.include?(key)
-              value = options[key]
-              html[key] = value unless value.blank?
-            else
-              html[key] = 'alert alert-error'
-            end
+          if options.include?(:class)
+            value = options[:class]
+            html[:class] = value unless value.blank?
+          else
+            html[:class] = 'alert alert-danger'
           end
           options[:object_name] ||= params.first
 
